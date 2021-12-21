@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guessing Game</title>
+	<style>
+		#myResult{
+			font-family: Monaco,Lucida Console,Monospace;
+			padding: 4px;
+			background-color:#FFBB73;
+			color: black;
+			text-decoration: underline;
+		}
+        .inputlen{
+            width:300px;
+            height:25px;
+            border-radius:5px;
+        }
+        .button1{color:white; 
+                 background-color: #996633;
+                 width:150px;
+                 height:40px;
+        }
+        .button1:hover{background-color: brown;
+                       color: black;
+        }
+        
+        .mydiv {
+          border: 1px solid black;
+          background-color: lightgray;
+          width: 30%;
+      	  margin: 0 auto;
+          text-align:center;
+          border-radius:10px;
+        }
+        h1{
+        	background-color: #4d3900;
+        	color:white;
+        	padding:20px;
+        }
+        body{font-family: Arial, Helvetica, sans-serif;}
+
+    </style>
+</head>
+
+
+<body>
+	<form action="#">
+    <div class="mydiv">
+		<h1>Guessing Game</h1>
+		<p>Your Guess(1~100)</p>
+		<p>
+	    	<input id="guessNum" type="number" class="inputlen" style="border-width:2px;">
+		</p>
+
+		<p><input id="run" type="button" onclick="tell()" value="play" class="button1" style="border-width:1px;"></p>
+	    <h3>Result</h3>
+	    <div id="myResult">
+	    	
+	    </div>
+	
+
+	<script>
+		var answer = Math.floor((Math.random()*100) +1);
+		var min = 1;
+		var max = 100;
+
+		function tell() {
+			var guessAnswer = Number(document.getElementById("guessNum").value)
+			var para = document.createElement("P");
+		    if (guessAnswer < answer) {
+		        min = guessAnswer + 1;
+                para.innerText = "Your guessing is "+guessAnswer+". Too small. The range is "+ min +"~"+ max;
+                document.getElementById("myResult").appendChild(para);
+
+		    } else if(guessAnswer > answer){
+		        max = guessAnswer - 1;
+                para.innerText = "Your guessing is "+guessAnswer+". Too large. The range is "+ min +"~"+ max;
+                document.getElementById("myResult").appendChild(para);
+		    }else{
+                 para.innerText = "Your guessing is "+guessAnswer+". Your guessing is right";
+                 document.getElementById("myResult").appendChild(para);
+            }
+		}
+			
+	
+	
+	</script>
+	</div>
+	</form>
+
+
+</body>
+</html>
