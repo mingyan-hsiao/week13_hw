@@ -3,13 +3,7 @@
 <head>
 	<title>Guessing Game</title>
 	<style>
-		#myResult{
-			font-family: Monaco,Lucida Console,Monospace;
-			padding: 4px;
-			background-color:#FFBB73;
-			color: black;
-			text-decoration: underline;
-		}
+		
         .inputlen{
             width:300px;
             height:25px;
@@ -38,6 +32,16 @@
         	padding:20px;
         }
         body{font-family: Arial, Helvetica, sans-serif;}
+        table {
+				  border-collapse: collapse;
+				  width: 100%;
+			   }
+        tr:hover {background-color: #996633;}
+		tr:nth-child(even){background-color: #f2f2f2}
+        td{			
+			font-family: Monaco,Lucida Console,Monospace;
+		}
+		
 
     </style>
 </head>
@@ -51,13 +55,12 @@
 		<p>
 	    	<input id="guessNum" type="number" class="inputlen" style="border-width:2px;">
 		</p>
-
+	</form>
 		<p><input id="run" type="button" onclick="tell()" value="play" class="button1" style="border-width:1px;"></p>
-	    <h3>Result</h3>
-	    <div id="myResult">
-	    	
-	    </div>
-	
+	    <table id="table">
+	    	<tr><th>Result</th></tr>
+	    </table>
+	</div>
 
 	<script>
 		var answer = Math.floor((Math.random()*100) +1);
@@ -66,27 +69,37 @@
 
 		function tell() {
 			var guessAnswer = Number(document.getElementById("guessNum").value)
-			var para = document.createElement("P");
-		    if (guessAnswer < answer) {
-		        min = guessAnswer + 1;
-                para.innerText = "Your guessing is "+guessAnswer+". Too small. The range is "+ min +"~"+ max;
-                document.getElementById("myResult").appendChild(para);
-
-		    } else if(guessAnswer > answer){
-		        max = guessAnswer - 1;
-                para.innerText = "Your guessing is "+guessAnswer+". Too large. The range is "+ min +"~"+ max;
-                document.getElementById("myResult").appendChild(para);
-		    }else{
-                 para.innerText = "Your guessing is "+guessAnswer+". Your guessing is right";
-                 document.getElementById("myResult").appendChild(para);
-            }
+			if (guessAnswer == answer){
+				alert("Bingoooo!!!");
+                location.reload(); 
+			}
+			while (guessAnswer != answer){
+			    if (guessAnswer > answer) {
+			    	if(guessAnswer < max){max = guessAnswer;}
+			    	var tr = document.createElement("tr");
+			    	var td = document.createElement("td");
+			    	var text = document.createTextNode(min+"~"+max);
+			    	td.appendChild(text);
+			    	tr.appendChild(td);
+			    	document.getElementById("table").appendChild(tr);
+			    	break;
+			    }else{
+			    	if(guessAnswer > min){min = guessAnswer;}
+			    	var tr = document.createElement("tr");
+			    	var td = document.createElement("td");
+			    	var text = document.createTextNode(min+"~"+max);
+			    	td.appendChild(text);
+			    	tr.appendChild(td);
+			    	document.getElementById("table").appendChild(tr);
+			    	break;
+			    }    
+		    }
 		}
 			
-	
-	
+
 	</script>
-	</div>
-	</form>
+	
+	
 
 
 </body>
